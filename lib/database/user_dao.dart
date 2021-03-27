@@ -10,6 +10,7 @@ class LocalUsers extends Table {
   TextColumn get userPass => text()();
   IntColumn get userAccessGranted => integer()();
   TextColumn get userCreatedAt => text()();
+  TextColumn get userImage => text()();
   TextColumn get userToken => text()();
   TextColumn get userRefreshToken => text()();
 

@@ -14,6 +14,7 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
   final String userPass;
   final int userAccessGranted;
   final String userCreatedAt;
+  final String userImage;
   final String userToken;
   final String userRefreshToken;
   LocalUser(
@@ -23,6 +24,7 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
       @required this.userPass,
       @required this.userAccessGranted,
       @required this.userCreatedAt,
+      @required this.userImage,
       @required this.userToken,
       @required this.userRefreshToken});
   factory LocalUser.fromData(Map<String, dynamic> data, GeneratedDatabase db,
@@ -43,6 +45,8 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
           data['${effectivePrefix}user_access_granted']),
       userCreatedAt: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}user_created_at']),
+      userImage: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}user_image']),
       userToken: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}user_token']),
       userRefreshToken: stringType.mapFromDatabaseResponse(
@@ -59,6 +63,7 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
       userPass: serializer.fromJson<String>(json['userPass']),
       userAccessGranted: serializer.fromJson<int>(json['userAccessGranted']),
       userCreatedAt: serializer.fromJson<String>(json['userCreatedAt']),
+      userImage: serializer.fromJson<String>(json['userImage']),
       userToken: serializer.fromJson<String>(json['userToken']),
       userRefreshToken: serializer.fromJson<String>(json['userRefreshToken']),
     );
@@ -73,6 +78,7 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
       'userPass': serializer.toJson<String>(userPass),
       'userAccessGranted': serializer.toJson<int>(userAccessGranted),
       'userCreatedAt': serializer.toJson<String>(userCreatedAt),
+      'userImage': serializer.toJson<String>(userImage),
       'userToken': serializer.toJson<String>(userToken),
       'userRefreshToken': serializer.toJson<String>(userRefreshToken),
     };
@@ -98,6 +104,9 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
       userCreatedAt: userCreatedAt == null && nullToAbsent
           ? const Value.absent()
           : Value(userCreatedAt),
+      userImage: userImage == null && nullToAbsent
+          ? const Value.absent()
+          : Value(userImage),
       userToken: userToken == null && nullToAbsent
           ? const Value.absent()
           : Value(userToken),
@@ -114,6 +123,7 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
           String userPass,
           int userAccessGranted,
           String userCreatedAt,
+          String userImage,
           String userToken,
           String userRefreshToken}) =>
       LocalUser(
@@ -123,6 +133,7 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
         userPass: userPass ?? this.userPass,
         userAccessGranted: userAccessGranted ?? this.userAccessGranted,
         userCreatedAt: userCreatedAt ?? this.userCreatedAt,
+        userImage: userImage ?? this.userImage,
         userToken: userToken ?? this.userToken,
         userRefreshToken: userRefreshToken ?? this.userRefreshToken,
       );
@@ -135,6 +146,7 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
           ..write('userPass: $userPass, ')
           ..write('userAccessGranted: $userAccessGranted, ')
           ..write('userCreatedAt: $userCreatedAt, ')
+          ..write('userImage: $userImage, ')
           ..write('userToken: $userToken, ')
           ..write('userRefreshToken: $userRefreshToken')
           ..write(')'))
@@ -154,8 +166,10 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
                       userAccessGranted.hashCode,
                       $mrjc(
                           userCreatedAt.hashCode,
-                          $mrjc(userToken.hashCode,
-                              userRefreshToken.hashCode))))))));
+                          $mrjc(
+                              userImage.hashCode,
+                              $mrjc(userToken.hashCode,
+                                  userRefreshToken.hashCode)))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -166,6 +180,7 @@ class LocalUser extends DataClass implements Insertable<LocalUser> {
           other.userPass == this.userPass &&
           other.userAccessGranted == this.userAccessGranted &&
           other.userCreatedAt == this.userCreatedAt &&
+          other.userImage == this.userImage &&
           other.userToken == this.userToken &&
           other.userRefreshToken == this.userRefreshToken);
 }
@@ -177,6 +192,7 @@ class LocalUsersCompanion extends UpdateCompanion<LocalUser> {
   final Value<String> userPass;
   final Value<int> userAccessGranted;
   final Value<String> userCreatedAt;
+  final Value<String> userImage;
   final Value<String> userToken;
   final Value<String> userRefreshToken;
   const LocalUsersCompanion({
@@ -186,6 +202,7 @@ class LocalUsersCompanion extends UpdateCompanion<LocalUser> {
     this.userPass = const Value.absent(),
     this.userAccessGranted = const Value.absent(),
     this.userCreatedAt = const Value.absent(),
+    this.userImage = const Value.absent(),
     this.userToken = const Value.absent(),
     this.userRefreshToken = const Value.absent(),
   });
@@ -196,6 +213,7 @@ class LocalUsersCompanion extends UpdateCompanion<LocalUser> {
     @required String userPass,
     @required int userAccessGranted,
     @required String userCreatedAt,
+    @required String userImage,
     @required String userToken,
     @required String userRefreshToken,
   })  : userId = Value(userId),
@@ -204,6 +222,7 @@ class LocalUsersCompanion extends UpdateCompanion<LocalUser> {
         userPass = Value(userPass),
         userAccessGranted = Value(userAccessGranted),
         userCreatedAt = Value(userCreatedAt),
+        userImage = Value(userImage),
         userToken = Value(userToken),
         userRefreshToken = Value(userRefreshToken);
   LocalUsersCompanion copyWith(
@@ -213,6 +232,7 @@ class LocalUsersCompanion extends UpdateCompanion<LocalUser> {
       Value<String> userPass,
       Value<int> userAccessGranted,
       Value<String> userCreatedAt,
+      Value<String> userImage,
       Value<String> userToken,
       Value<String> userRefreshToken}) {
     return LocalUsersCompanion(
@@ -222,6 +242,7 @@ class LocalUsersCompanion extends UpdateCompanion<LocalUser> {
       userPass: userPass ?? this.userPass,
       userAccessGranted: userAccessGranted ?? this.userAccessGranted,
       userCreatedAt: userCreatedAt ?? this.userCreatedAt,
+      userImage: userImage ?? this.userImage,
       userToken: userToken ?? this.userToken,
       userRefreshToken: userRefreshToken ?? this.userRefreshToken,
     );
@@ -311,6 +332,18 @@ class $LocalUsersTable extends LocalUsers
     );
   }
 
+  final VerificationMeta _userImageMeta = const VerificationMeta('userImage');
+  GeneratedTextColumn _userImage;
+  @override
+  GeneratedTextColumn get userImage => _userImage ??= _constructUserImage();
+  GeneratedTextColumn _constructUserImage() {
+    return GeneratedTextColumn(
+      'user_image',
+      $tableName,
+      false,
+    );
+  }
+
   final VerificationMeta _userTokenMeta = const VerificationMeta('userToken');
   GeneratedTextColumn _userToken;
   @override
@@ -345,6 +378,7 @@ class $LocalUsersTable extends LocalUsers
         userPass,
         userAccessGranted,
         userCreatedAt,
+        userImage,
         userToken,
         userRefreshToken
       ];
@@ -400,6 +434,12 @@ class $LocalUsersTable extends LocalUsers
     } else if (isInserting) {
       context.missing(_userCreatedAtMeta);
     }
+    if (d.userImage.present) {
+      context.handle(_userImageMeta,
+          userImage.isAcceptableValue(d.userImage.value, _userImageMeta));
+    } else if (isInserting) {
+      context.missing(_userImageMeta);
+    }
     if (d.userToken.present) {
       context.handle(_userTokenMeta,
           userToken.isAcceptableValue(d.userToken.value, _userTokenMeta));
@@ -448,6 +488,9 @@ class $LocalUsersTable extends LocalUsers
     if (d.userCreatedAt.present) {
       map['user_created_at'] =
           Variable<String, StringType>(d.userCreatedAt.value);
+    }
+    if (d.userImage.present) {
+      map['user_image'] = Variable<String, StringType>(d.userImage.value);
     }
     if (d.userToken.present) {
       map['user_token'] = Variable<String, StringType>(d.userToken.value);
